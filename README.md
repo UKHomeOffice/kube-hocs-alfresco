@@ -1,2 +1,2 @@
-# kube-hocs-data-service
-Kube configuration for the HOCS-Data-Service
+# kube-hocs-alfresco
+Kube configuration for the HOCS-Alfresco
