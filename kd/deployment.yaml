@@ -25,41 +25,9 @@ spec:
       - name: hocs-alfresco
         image: quay.io/ukhomeofficedigital/hocs-alfresco:{{.VERSION}}
         env:
-          - name: JAVA_OPTS
-            value: '-Xms150m -Xmx768m'
-          - name: SERVER_PORT
-            value: '8080'
-          - name: SLS_DB_HOSTNAME
-            valueFrom:
-              secretKeyRef:
-                name: hocs-rds-access
-                key: endpoint
-          - name: SLS_DB_PORT
-            valueFrom:
-              secretKeyRef:
-                name: hocs-rds-access
-                key: port
-          - name: SLS_DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: hocs-rds-access
-                key: database_name
-          - name: SLS_SCHEMA_NAME
-            value:
-              'alfresco'
-          - name: SLS_DB_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: hocs-rds-access
-                key: username
-          - name: SLS_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: hocs-rds-access
-                key: password
         resources:
           limits:
-            memory: 1024Mi
+            memory: 2560Mi
             cpu: 400m
           requests:
             memory: 1024Mi
