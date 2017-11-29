@@ -43,12 +43,12 @@ spec:
           - name: ALF_DB_USERNAME
             valueFrom:
               secretKeyRef:
-                name: hocs-rds-access
+                name: hocs-mysql-rds-access
                 key: username
           - name: ALF_DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: hocs-rds-access
+                name: hocs-mysql-rds-access
                 key: password
         resources:
           limits:
