@@ -25,6 +25,31 @@ spec:
       - name: hocs-alfresco
         image: quay.io/ukhomeofficedigital/hocs-alfresco:{{.VERSION}}
         env:
+          - name: ALF_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: hocs-mysql-rds-access
+                key: endpoint
+          - name: ALF_DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: hocs-mysql-rds-access
+                key: port
+          - name: ALF_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: hocs-mysql-rds-access
+                key: database_name
+          - name: ALF_DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: hocs-rds-access
+                key: username
+          - name: ALF_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: hocs-rds-access
+                key: password
         resources:
           limits:
             memory: 2560Mi
