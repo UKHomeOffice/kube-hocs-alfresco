@@ -50,6 +50,26 @@ spec:
               secretKeyRef:
                 name: hocs-mysql-rds-access
                 key: password
+          - name: ALF_S3_ACCESSKEY
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: s3accesskey    
+          - name: ALF_S3_SECRETKEY
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: s3secretkey
+          - name: ALF_S3_BUCKETNAME
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: s3bucketname
+           - name: ALF_ADMIN_INITIAL_PASSWORD
+             valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: initialAdmin
         resources:
           limits:
             memory: 2560Mi
