@@ -83,7 +83,7 @@ spec:
         imagePullPolicy: Always
         volumeMounts:
           - mountPath: /usr/local/alfresco
-            name: alf_home
+            name: alfhome
       - name: vault-sidekick
         image: quay.io/ukhomeofficedigital/vault-sidekick:v0.2.0
         imagePullPolicy: Always
@@ -149,6 +149,6 @@ spec:
       - name: secrets
         emptyDir:
           medium: "Memory"
-      - name: alf_home
+      - name: alfhome
         emptyDir:
           medium: "Memory"
