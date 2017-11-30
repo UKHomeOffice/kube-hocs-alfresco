@@ -81,9 +81,6 @@ spec:
           - name: http
             containerPort: 8080
         imagePullPolicy: Always
-        volumeMounts:
-          - mountPath: /usr/local/alfresco
-            name: alfhome
       - name: vault-sidekick
         image: quay.io/ukhomeofficedigital/vault-sidekick:v0.2.0
         imagePullPolicy: Always
@@ -147,8 +144,5 @@ spec:
             containerPort: 10443
       volumes:
       - name: secrets
-        emptyDir:
-          medium: "Memory"
-      - name: alfhome
         emptyDir:
           medium: "Memory"
