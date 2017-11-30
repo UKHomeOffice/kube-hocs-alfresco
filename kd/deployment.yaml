@@ -37,7 +37,7 @@ spec:
                 key: port
           - name: ALF_DB_NAME
             value:
-              'alf'
+              'alfresco'
           - name: ALF_DB_USERNAME
             valueFrom:
               secretKeyRef:
