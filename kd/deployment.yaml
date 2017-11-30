@@ -65,8 +65,8 @@ spec:
               secretKeyRef:
                 name: hocs-alfresco
                 key: s3bucketname
-           - name: ALF_ADMIN_INITIAL_PASSWORD
-             valueFrom:
+          - name: ALF_ADMIN_INITIAL_PASSWORD
+            valueFrom:
               secretKeyRef:
                 name: hocs-alfresco
                 key: initialAdmin
