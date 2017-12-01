@@ -36,8 +36,10 @@ spec:
                 name: hocs-mysql-rds-access
                 key: port
           - name: ALF_DB_NAME
-            value:
-              'alfresco'
+            valueFrom:
+              secretKeyRef:
+                name: hocs-mysql-rds-access
+                key: database_name
           - name: ALF_DB_USERNAME
             valueFrom:
               secretKeyRef:
