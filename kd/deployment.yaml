@@ -95,6 +95,8 @@ spec:
         ports:
           - name: http
             containerPort: 8080
+          - name: https
+            containerPort: 8443
         imagePullPolicy: Always
       - name: vault-sidekick
         image: quay.io/ukhomeofficedigital/vault-sidekick:v0.2.0
