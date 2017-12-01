@@ -81,9 +81,6 @@ spec:
           - name: http
             containerPort: 8080
         imagePullPolicy: Always
-        volumeMounts:
-          - mountPath: /usr/local/alfresco/alf_data
-            name: alfdata
       - name: vault-sidekick
         image: quay.io/ukhomeofficedigital/vault-sidekick:v0.2.0
         imagePullPolicy: Always
