@@ -14,7 +14,7 @@ spec:
       - backend:
           serviceName: hocs-alfresco
           servicePort: 443
-        path: /alfresco
+        path: /
   tls:
   - hosts:
     - alfresco.{{.DNS_PREFIX}}hocs.homeoffice.gov.uk
