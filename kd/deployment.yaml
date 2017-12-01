@@ -70,6 +70,21 @@ spec:
               secretKeyRef:
                 name: hocs-alfresco
                 key: initialAdmin
+          - name: ALF_SSL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: sslPass
+          - name: SSL_KEYSTORE
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: sslKeystore
+          - name: SSL_TRUSTSTORE
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: sslTruststore
         resources:
           limits:
             memory: 2560Mi
