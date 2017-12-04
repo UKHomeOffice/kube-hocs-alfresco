@@ -93,8 +93,8 @@ spec:
             memory: 1024Mi
             cpu: 200m
         ports:
-          - name: https
-            containerPort: 8443
+          - name: http
+            containerPort: 8080
         imagePullPolicy: Always
       - name: vault-sidekick
         image: quay.io/ukhomeofficedigital/vault-sidekick:v0.2.0
@@ -139,7 +139,7 @@ spec:
           - name: PROXY_SERVICE_HOST
             value: '127.0.0.1'
           - name: PROXY_SERVICE_PORT
-            value: '8443'
+            value: '8080'
           - name: NAXSI_USE_DEFAULT_RULES
             value: 'FALSE'
           - name: ENABLE_UUID_PARAM
