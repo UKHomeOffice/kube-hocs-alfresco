@@ -7,6 +7,9 @@ metadata:
   name: hocs-alfresco
 spec:
   ports:
+  - name: http
+    port: 80
+    targetPort: 10080
   - name: https
     port: 443
     targetPort: 10443
