@@ -77,10 +77,6 @@ spec:
       - name: hocs-alfresco
         image: quay.io/ukhomeofficedigital/hocs-alfresco:{{.VERSION}}
         env:
-          - name: JAVA_OPTS
-            value: '-Xms150m -Xmx2304m -Djavax.net.ssl.trustStore=/data/truststore.jks'
-          - name: JDK_TRUST_FILE
-            value: '/data/truststore.jks'
           - name: ALF_DB_HOST
             valueFrom:
               secretKeyRef:
