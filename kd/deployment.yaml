@@ -129,10 +129,10 @@ spec:
                 key: reportingUrl
         resources:
           limits:
-            memory: 2560Mi
-            cpu: 400m
+            memory: 4608Mi
+            cpu: 1600m
           requests:
-            memory: 1024Mi
+            memory: 2048Mi
             cpu: 200m
         ports:
           - name: http
