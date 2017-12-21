@@ -212,7 +212,6 @@ spec:
       - name: javapki
         emptyDir:
           medium: "Memory"
-          alfresco-data
       - name: alfresco-data
         persistentVolumeClaim:
          claimName: alfresco-pv-claim
