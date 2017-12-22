@@ -222,7 +222,7 @@ spec:
           medium: "Memory"
       - name: javapki
         emptyDir:
-          medium: "Memory
+          medium: "Memory"
       - name: redis-data
         emptyDir:
           medium: "Memory"
