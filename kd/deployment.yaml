@@ -206,7 +206,7 @@ spec:
           - name: https
             containerPort: 10443
       - name: redis
-        image: k8s.gcr.io/redis:v1
+        image: redis:alpine
         ports:
           - name: redis
             containerPort: 6379
