@@ -206,7 +206,7 @@ spec:
           - name: https
             containerPort: 10443
       - name: redis
-        image: redis:alpine
+        image: quay.io/ukhomeofficedigital/redis:latest
         ports:
           - name: redis
             containerPort: 6379
