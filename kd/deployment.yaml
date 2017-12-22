@@ -205,11 +205,24 @@ spec:
         ports:
           - name: https
             containerPort: 10443
+      - name: redis
+        image: k8s.gcr.io/redis:v1
+        ports:
+        - containerPort: 6379
+        resources:
+          limits:
+            cpu: "0.1"
+        volumeMounts:
+        - mountPath: /redis-master-data
+          name: redis-data
       volumes:
       - name: secrets
         emptyDir:
           medium: "Memory"
       - name: javapki
+        emptyDir:
+          medium: "Memory
+      - name: redis-data
         emptyDir:
           medium: "Memory"
       - name: alfresco-data
