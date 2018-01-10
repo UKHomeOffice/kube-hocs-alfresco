@@ -142,8 +142,6 @@ spec:
           - mountPath: /data
             name: javapki
             readOnly: true
-          - mountPath: /usr/local/alfresco/alf_data
-            name: alfresco-data
       - name: vault-sidekick
         image: quay.io/ukhomeofficedigital/vault-sidekick:v0.2.0
         imagePullPolicy: Always
@@ -212,6 +210,3 @@ spec:
       - name: javapki
         emptyDir:
           medium: "Memory"
-      - name: alfresco-data
-        persistentVolumeClaim:
-         claimName: alfresco-pv-claim
