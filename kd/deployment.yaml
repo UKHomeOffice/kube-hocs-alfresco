@@ -129,11 +129,11 @@ spec:
                 key: reportingUrl
         resources:
           limits:
-            memory: 4608Mi
+            memory: 5120Mi
             cpu: 1600m
           requests:
             memory: 2048Mi
-            cpu: 200m
+            cpu: 400m
         ports:
           - name: http
             containerPort: 8080
