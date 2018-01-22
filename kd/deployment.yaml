@@ -133,7 +133,7 @@ spec:
             cpu: 1600m
           requests:
             memory: 2048Mi
-            cpu: 400m
+            cpu: 100m
         ports:
           - name: http
             containerPort: 8080
