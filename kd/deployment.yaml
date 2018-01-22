@@ -154,7 +154,7 @@ spec:
             httpHeaders:
               - name: X-probe
                 value: kubelet
-          initialDelaySeconds: 240
+          initialDelaySeconds: 600
           periodSeconds: 20
           timeoutSeconds: 20
         imagePullPolicy: Always
