@@ -139,17 +139,17 @@ spec:
             containerPort: 8080
         livenessProbe:
           httpGet:
-            path: /alfresco/faces/jsp/browse
+            path: /alfresco/faces/jsp/browse/browse.jsp
             port: http
             httpHeaders:
               - name: X-probe
                 value: kubelet
-          initialDelaySeconds: 240
+          initialDelaySeconds: 600
           periodSeconds: 20
           timeoutSeconds: 20
         readinessProbe:
           httpGet:
-            path: /alfresco/faces/jsp/browse
+            path: /alfresco/faces/jsp/browse/browse.jsp
             port: http
             httpHeaders:
               - name: X-probe
