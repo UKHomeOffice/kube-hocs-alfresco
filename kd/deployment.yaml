@@ -139,7 +139,7 @@ spec:
             containerPort: 8080
         livenessProbe:
           httpGet:
-            path: /alfresco/faces/jsp/browse/browse.jsp
+            path: /alfresco/faces/jsp/browse
             port: http
             httpHeaders:
               - name: X-probe
@@ -149,7 +149,7 @@ spec:
           timeoutSeconds: 20
         readinessProbe:
           httpGet:
-            path: /alfresco/faces/jsp/browse/browse.jsp
+            path: /alfresco/faces/jsp/browse
             port: http
             httpHeaders:
               - name: X-probe
