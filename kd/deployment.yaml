@@ -137,6 +137,31 @@ spec:
         ports:
           - name: http
             containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /alfresco/faces/jsp/browse/browse.jsp
+            port: http
+            httpHeaders:
+              - name: X-probe
+                value: kubelet
+          initialDelaySeconds: 240
+          periodSeconds: 20
+          timeoutSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /alfresco/faces/jsp/browse/browse.jsp
+            port: http
+            httpHeaders:
+              - name: X-probe
+                value: kubelet
+          initialDelaySeconds: 240
+          periodSeconds: 20
+          timeoutSeconds: 20
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /data
+            name: javapki
+            readOnly: true
         imagePullPolicy: Always
         volumeMounts:
           - mountPath: /data
