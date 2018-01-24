@@ -129,8 +129,8 @@ spec:
                 key: reportingUrl
         resources:
           limits:
-            memory: 5120Mi
-            cpu: 1600m
+            memory: 6Gi
+            cpu: 2000m
           requests:
             memory: 2048Mi
             cpu: 100m
