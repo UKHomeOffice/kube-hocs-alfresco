@@ -127,6 +127,26 @@ spec:
               secretKeyRef:
                 name: hocs-alfresco
                 key: reportingUrl
+          - name: ALF_NOTIFY_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: notifyApiKey
+          - name: ALF_NOTIFY_WF_TEMPLATE_ID
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: notifyWFTemplateId
+          - name: ALF_NOTIFY_RESET_PW_TEMPLATE_ID
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: notifyResetPWTemplateId
+          - name: ALF_NOTIFY_BULK_USER_IMPORT_TEMPLATE_ID
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: notifyBulkUserImportTemplateId
         resources:
           limits:
             memory: 6Gi
