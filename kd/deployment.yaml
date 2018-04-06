@@ -147,6 +147,11 @@ spec:
               secretKeyRef:
                 name: hocs-alfresco
                 key: notifyBulkUserImportTemplateId
+          - name: ALF_NOTIFY_CREATE_CASE_EMAIL_TEMPLATE_ID
+            valueFrom:
+              secretKeyRef:
+                name: hocs-alfresco
+                key: notifyCreateCaseEmailTemplateId      
         resources:
           limits:
             memory: 6Gi
