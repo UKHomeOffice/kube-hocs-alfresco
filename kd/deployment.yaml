@@ -119,12 +119,12 @@ spec:
             - name: certs
               mountPath: /certs
               readOnly: true
-            - name: secrets
-              mountPath: /etc/nginx/secrets
-              readOnly: true
-            - name: auth-secrets
-              mountPath: /etc/nginx/authsecrets
-              readOnly: true
+            # - name: secrets
+            #   mountPath: /etc/nginx/secrets
+            #   readOnly: true
+            # - name: auth-secrets
+            #   mountPath: /etc/nginx/authsecrets
+            #   readOnly: true
           ports:
             - name: https
               containerPort: 10443
@@ -225,10 +225,17 @@ spec:
               containerPort: 8080
           volumeMounts:
             - mountPath: /data
-              name: certs
+              name: keystore
               readOnly: true
       volumes:
+        - name: keystore
+          emptyDir:
+            medium: "Memory"
         - name: certs
           emptyDir:
             medium: "Memory"
+        - name: bundle
+          configMap:
+            name: bundle
+
 
