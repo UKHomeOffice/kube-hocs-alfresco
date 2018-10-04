@@ -11,9 +11,9 @@ if [[ ${ENVIRONMENT} == "prod" ]] ; then
     echo "deploy ${VERSION} to prod namespace, using HOCS_ALFRESCO_PROD drone secret"
     export KUBE_TOKEN=${HOCS_ALFRESCO_PROD}
     export REPLICAS="2"
-    export DNS_PREFIX=
+    export DNS_PREFIX=alf
 else
-    export DNS_PREFIX=${ENVIRONMENT}.notprod.
+    export DNS_PREFIX=${ENVIRONMENT}.alf-notprod.
     if [[ ${ENVIRONMENT} == "qa" ]] ; then
         echo "deploy ${VERSION} to test namespace, using HOCS_ALFRESCO_QA drone secret"
         export KUBE_TOKEN=${HOCS_ALFRESCO_QA}
@@ -25,7 +25,7 @@ else
     fi
 fi
 
-export DOMAIN_NAME=${DNS_PREFIX}alf.homeoffice.gov.uk
+export DOMAIN_NAME=${DNS_PREFIX}homeoffice.gov.uk
 
 if [[ -z ${KUBE_TOKEN} ]] ; then
     echo "Failed to find a value for KUBE_TOKEN - exiting"
