@@ -25,6 +25,8 @@ else
     fi
 fi
 
+export DOMAIN_NAME=${DNS_PREFIX}alf.homeoffice.gov.uk
+
 if [[ -z ${KUBE_TOKEN} ]] ; then
     echo "Failed to find a value for KUBE_TOKEN - exiting"
     exit -1
