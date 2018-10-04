@@ -20,8 +20,6 @@ spec:
       labels:
         name: hocs-alfresco
         version: {{.VERSION}}
-      annotations:
-        pod.beta.kubernetes.io/init-containers: 
     spec:
       imagePullSecrets:
         - name: registrykey
