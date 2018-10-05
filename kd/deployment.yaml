@@ -141,78 +141,57 @@ spec:
             - name: ALF_DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: hocs-mysql-rds-access
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
                   key: endpoint
             - name: ALF_DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: hocs-mysql-rds-access
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
                   key: port
             - name: ALF_DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: hocs-mysql-rds-access
-                  key: database_name
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
+                  key: default_db
             - name: ALF_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: hocs-mysql-rds-access
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
                   key: username
             - name: ALF_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: hocs-mysql-rds-access
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
                   key: password
             - name: ALF_S3_ACCESSKEY
               valueFrom:
                 secretKeyRef:
-                  name: hocs-alfresco
-                  key: s3accesskey    
+                  name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
+                  key: access_key_id    
             - name: ALF_S3_SECRETKEY
               valueFrom:
                 secretKeyRef:
-                  name: hocs-alfresco
-                  key: s3secretkey
+                  name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
+                  key: secret_access_key
             - name: ALF_S3_BUCKETNAME
               valueFrom:
                 secretKeyRef:
-                  name: hocs-alfresco
-                  key: s3bucketname
+                  name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
+                  key: name
             - name: ALF_ADMIN_INITIAL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: hocs-alfresco
-                  key: initialAdmin
+              value: 209c6174da490caeb422f3fa5a7ae634
             - name: ALF_REPORTING_ENDPOINT
-              valueFrom:
-                secretKeyRef:
-                  name: hocs-alfresco
-                  key: reportingUrl
+              value: https:\/\/hocs-reporting-service\.alf-dev\.svc\.cluster\.local
             - name: ALF_NOTIFY_APIKEY
-              valueFrom:
-                secretKeyRef:
-                  name: hocs-alfresco
-                  key: notifyApiKey
+              value: initialtestsendkey-e3262a71-675d-4233-bdd2-99444827ea58-2a0ec2d3...
             - name: ALF_NOTIFY_WF_TEMPLATE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: hocs-alfresco
-                  key: notifyWFTemplateId
+              value: f39bab26-758e-4826-895e-6aa576af1c14
             - name: ALF_NOTIFY_RESET_PW_TEMPLATE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: hocs-alfresco
-                  key: notifyResetPWTemplateId
+              value: ba9fbeaf-3160-41b1-8d61-1a73a89646f2
             - name: ALF_NOTIFY_BULK_USER_IMPORT_TEMPLATE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: hocs-alfresco
-                  key: notifyBulkUserImportTemplateId
+              value: 55a14d74-dfd7-468f-9468-28353139a9ac
             - name: ALF_NOTIFY_CREATE_CASE_EMAIL_TEMPLATE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: hocs-alfresco
-                  key: notifyCreateCaseEmailTemplateId      
+              value: f9deeb0b-88e6-40ee-831e-1dce54a35023
           resources:
             limits:
               cpu: 3600m
