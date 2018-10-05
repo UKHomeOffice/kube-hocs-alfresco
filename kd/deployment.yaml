@@ -6,7 +6,7 @@ metadata:
   labels:
     version: {{.VERSION}}
 spec:
-  replicas: 1
+  replicas: {{.REPLICAS}}
   selector:
     matchLabels:
       name: hocs-alfresco
@@ -19,6 +19,7 @@ spec:
     metadata:
       labels:
         name: hocs-alfresco
+        
         version: {{.VERSION}}
     spec:
       imagePullSecrets:
@@ -51,7 +52,6 @@ spec:
           - name: bundle
             mountPath: /etc/ssl/certs
             readOnly: true
-
       containers:
         - name: certs
           image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.6
@@ -79,7 +79,7 @@ spec:
               readOnly: true
 
         - name: proxy
-          image: quay.io/ukhomeofficedigital/nginx-proxy:v3.2.9
+          image: quay.io/ukhomeofficedigital/nginx-proxy:v3.2.11
           imagePullPolicy: Always
           securityContext:
             runAsNonRoot: true
@@ -126,15 +126,17 @@ spec:
           ports:
             - name: https
               containerPort: 10443
-
         - name: hocs-alfresco
           image: quay.io/ukhomeofficedigital/hocs-alfresco:{{.VERSION}}
+          imagePullPolicy: Always
           securityContext:
-              runAsNonRoot: true
-              capabilities:
-                drop:
-                  - SETUID
-                  - SETGID
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - SETUID
+                - SETGID
+                
+                
           env:
             - name: ALF_DB_HOST
               valueFrom:
@@ -213,11 +215,11 @@ spec:
                   key: notifyCreateCaseEmailTemplateId      
           resources:
             limits:
-              memory: 6Gi
-              cpu: 1600m
+              cpu: 3600m
+              memory: 10Gi
             requests:
-              memory: 1024Mi
-              cpu: 100m
+              cpu: 600m
+              memory: 3096Mi
           ports:
             - name: http
               containerPort: 8080
@@ -235,5 +237,3 @@ spec:
         - name: bundle
           configMap:
             name: bundle
-
-
