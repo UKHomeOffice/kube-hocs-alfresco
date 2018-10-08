@@ -149,7 +149,7 @@ spec:
                   name: {{.KUBE_NAMESPACE}}-mysql-rds
                   key: port
             - name: ALF_DB_NAME
-              value: 'alfresco'
+              value: 'alfdevmysql'
             - name: ALF_DB_USERNAME
               valueFrom:
                 secretKeyRef:
