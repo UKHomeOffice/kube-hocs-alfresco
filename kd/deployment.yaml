@@ -135,8 +135,6 @@ spec:
               drop:
                 - SETUID
                 - SETGID
-                
-                
           env:
             - name: ALF_DB_HOST
               valueFrom:
