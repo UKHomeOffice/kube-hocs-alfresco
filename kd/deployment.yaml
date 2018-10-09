@@ -168,6 +168,11 @@ spec:
                 secretKeyRef:
                   name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
                   key: secret_access_key
+            - name: ALF_S3_SSEKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
+                  key: kms_key_id
             - name: ALF_S3_BUCKETNAME
               valueFrom:
                 secretKeyRef:
