@@ -164,12 +164,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
-                  key: access_key_id    
+                  key: access_key_id
             - name: ALF_S3_SECRETKEY
               valueFrom:
                 secretKeyRef:
                   name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
-                  key: secret_access_key
+                  key: doctored_secret_access_key
             - name: ALF_S3_BUCKETNAME
               valueFrom:
                 secretKeyRef:
