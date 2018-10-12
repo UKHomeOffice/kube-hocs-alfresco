@@ -47,6 +47,5 @@ fi
 cd kd || exit 1
 
 kd --timeout 10m \
-   -f ingress.yaml \
    -f service.yaml \
    -f deployment.yaml
