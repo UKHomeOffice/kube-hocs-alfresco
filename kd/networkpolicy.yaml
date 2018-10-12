@@ -7,9 +7,6 @@ metadata:
 spec:
   podSelector: {}
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            name: ingress-external
+    - {}
   egress:
     - {}
