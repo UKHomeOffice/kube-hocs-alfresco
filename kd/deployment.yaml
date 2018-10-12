@@ -2,14 +2,14 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: hocs-ui
+  name: hocs-alfresco
   labels:
     version: {{.VERSION}}
 spec:
   replicas: {{.REPLICAS}}
   selector:
     matchLabels:
-      name: hocs-ui
+      name: hocs-alfresco
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -18,138 +18,201 @@ spec:
   template:
     metadata:
       labels:
-        name: hocs-ui
+        name: hocs-alfresco
         
         version: {{.VERSION}}
     spec:
       imagePullSecrets:
         - name: registrykey
-      containers:
-      - name: certs
-        image: quay.io/ukhomeofficedigital/cfssl-sidekick-jks:v0.0.6
-        securityContext:
-          runAsNonRoot: true
-          capabilities:
-            drop:
-             - SETUID
-             - SETGID
-        args:
-          - --certs=/certs
-          - --domain=hocs-frontend.${KUBE_NAMESPACE}.svc.cluster.local
-          - --expiry=8760h
-          - --command=/usr/local/scripts/trigger_nginx_reload.sh
-        env:
+      initContainers:
+        - name: truststore
+          image: quay.io/ukhomeofficedigital/cfssl-sidekick-jks:v0.0.6
+          securityContext:
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - SETUID
+                - SETGID
+          args:
+            - --certs=/certs
+            - --command=/usr/bin/create-keystore.sh /certs/tls.pem /certs/tls-key.pem /etc/ssl/certs/acp-root.crt
+            - --domain=hocs-alfresco.${KUBE_NAMESPACE}.svc.cluster.local
+            - --domain=localhost
+            - --onetime=true
+          env:
           - name: KUBE_NAMESPACE
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-        volumeMounts:
+          volumeMounts:
           - name: certs
             mountPath: /certs
+          - name: keystore
+            mountPath: /etc/keystore
           - name: bundle
             mountPath: /etc/ssl/certs
             readOnly: true
-      - name: proxy
-        image: quay.io/ukhomeofficedigital/nginx-proxy-govuk:v3.2.11
-        imagePullPolicy: Always
-        securityContext:
-          runAsNonRoot: true
-          capabilities:
-            drop:
-             - SETUID
-             - SETGID
-        resources:
-         limits:
-          memory: "100Mi"
-          cpu: 100m
-         requests:
-          memory: "50Mi"
-          cpu: 100m
-        env:
-          - name: CLIENT_MAX_BODY_SIZE
-            value: '15'
-          - name: PROXY_SERVICE_HOST
-            value: '127.0.0.1'
-          - name: PROXY_SERVICE_PORT
-            value: '8080'
-          - name: NAXSI_USE_DEFAULT_RULES
-            value: 'FALSE'
-          - name: ENABLE_UUID_PARAM
-            value: 'FALSE'
-          - name: HTTPS_REDIRECT
-            value: 'FALSE'
-          - name: SERVER_CERT
-            value: /certs/tls.pem
-          - name: SERVER_KEY
-            value: /certs/tls-key.pem
-        volumeMounts:
-          - name: certs
-            mountPath: /certs
-            readOnly: true
-        ports:
-          - name: https
-            containerPort: 10443
-      - name: hocs-ui
-        image: quay.io/ukhomeofficedigital/hocs-ui:{{.VERSION}}
-        imagePullPolicy: Always
-        securityContext:
-          runAsNonRoot: true
-          capabilities:
-            drop:
-             - SETUID
-             - SETGID
-        env:
-          - name: APP_ENV
-            valueFrom:
-              secretKeyRef:
-                name: hocs-ui-env
-                key: environment
-          - name: SYMFONY_ENV
-            valueFrom:
-              secretKeyRef:
-                name: hocs-ui-env
-                key: environment
-          - name: APP_PHP
-            valueFrom:
-              secretKeyRef:
-                name: hocs-ui-env
-                key: phpfile
-        resources:
-          limits:
-            cpu: 600m
-            memory: 2048Mi
-          requests:
-            cpu: 200m
-            memory: 1024Mi
-        ports:
-          - name: http
-            containerPort: 8080
-        livenessProbe:
-          httpGet:
-            path: /forgottenPassword
-            port: http
-            httpHeaders:
-              - name: X-probe
-                value: kubelet
-          initialDelaySeconds: 180
-          periodSeconds: 20
-          timeoutSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /forgottenPassword
-            port: http
-            httpHeaders:
-              - name: X-probe
-                value: kubelet
-          initialDelaySeconds: 180
-          periodSeconds: 20
-          timeoutSeconds: 10
-        imagePullPolicy: Always
-        volumeMounts:
-          - mountPath: /certs
-            name: certs
-            readOnly: true
+      containers:
+        - name: certs
+          image: quay.io/ukhomeofficedigital/cfssl-sidekick:v0.0.6
+          securityContext:
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - SETUID
+                - SETGID
+          args:
+            - --certs=/certs
+            - --domain=hocs-alfresco.${KUBE_NAMESPACE}.svc.cluster.local
+            - --expiry=8760h
+            - --command=/usr/local/scripts/trigger_nginx_reload.sh
+          env:
+            - name: KUBE_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: certs
+              mountPath: /certs
+            - name: bundle
+              mountPath: /etc/ssl/certs
+              readOnly: true
+
+        - name: proxy
+          image: quay.io/ukhomeofficedigital/nginx-proxy:v3.2.11
+          imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - SETUID
+                - SETGID
+          resources:
+            limits:
+              memory: "100Mi"
+              cpu: 100m
+            requests:
+              memory: "50Mi"
+              cpu: 100m
+          env:
+            - name: PROXY_SERVICE_HOST
+              value: '127.0.0.1'
+            - name: PROXY_SERVICE_PORT
+              value: '8080'
+            - name: NAXSI_USE_DEFAULT_RULES
+              value: 'FALSE'
+            - name: ENABLE_UUID_PARAM
+              value: 'FALSE'
+            - name: HTTPS_REDIRECT
+              value: 'FALSE'
+            # - name: BASIC_AUTH
+            #   value: /etc/nginx/authsecrets/htpasswd
+            - name: SERVER_CERT
+              value: /certs/tls.pem
+            - name: SERVER_KEY
+              value: /certs/tls-key.pem
+            - name: ADD_NGINX_SERVER_CFG
+              value: 'gzip off; location = /reload { allow 127.0.0.1; deny all; content_by_lua_block { os.execute("touch /tmp/nginx-reload-triggered; /usr/local/openresty/nginx/sbin/nginx -s reload; touch /tmp/nginx-reload-complete;") } }'
+          volumeMounts:
+            - name: certs
+              mountPath: /certs
+              readOnly: true
+            # - name: secrets
+            #   mountPath: /etc/nginx/secrets
+            #   readOnly: true
+            # - name: auth-secrets
+            #   mountPath: /etc/nginx/authsecrets
+            #   readOnly: true
+          ports:
+            - name: https
+              containerPort: 10443
+        - name: hocs-alfresco
+          image: quay.io/ukhomeofficedigital/hocs-alfresco:{{.VERSION}}
+          imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - SETUID
+                - SETGID
+          env:
+            - name: ALF_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
+                  key: endpoint
+            - name: ALF_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
+                  key: port
+            - name: ALF_DB_NAME
+              value: 'alfdevmysql'
+            - name: ALF_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
+                  key: username
+            - name: ALF_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
+                  key: password
+            - name: ALF_S3_ACCESSKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
+                  key: access_key_id
+            - name: ALF_S3_SECRETKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
+                  key: secret_access_key
+            - name: ALF_S3_SSEKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
+                  key: kms_key_id
+            - name: ALF_S3_BUCKETNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-alfresco-content-s3
+                  key: name
+            - name: ALF_ADMIN_INITIAL_PASSWORD
+              value: 209c6174da490caeb422f3fa5a7ae634
+            - name: ALF_REPORTING_ENDPOINT
+              value: https:\/\/hocs-reporting-service\.alf-dev\.svc\.cluster\.local
+            - name: ALF_NOTIFY_APIKEY
+              value: initialtestsendkey-e3262a71-675d-4233-bdd2-99444827ea58-2a0ec2d3...
+            - name: ALF_NOTIFY_WF_TEMPLATE_ID
+              value: f39bab26-758e-4826-895e-6aa576af1c14
+            - name: ALF_NOTIFY_RESET_PW_TEMPLATE_ID
+              value: ba9fbeaf-3160-41b1-8d61-1a73a89646f2
+            - name: ALF_NOTIFY_BULK_USER_IMPORT_TEMPLATE_ID
+              value: 55a14d74-dfd7-468f-9468-28353139a9ac
+            - name: ALF_NOTIFY_CREATE_CASE_EMAIL_TEMPLATE_ID
+              value: f9deeb0b-88e6-40ee-831e-1dce54a35023
+          resources:
+            limits:
+              cpu: 3600m
+              memory: 10Gi
+            requests:
+              cpu: 600m
+              memory: 3096Mi
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - mountPath: /data
+              name: keystore
+              readOnly: true
       volumes:
+        - name: keystore
+          emptyDir:
+            medium: "Memory"
         - name: certs
           emptyDir:
             medium: "Memory"
+        - name: bundle
+          configMap:
+            name: bundle
