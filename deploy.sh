@@ -14,7 +14,7 @@ if [[ ${ENVIRONMENT} == "prod" ]] ; then
     export DNS_PREFIX=alfresco.alf.
     export CA_URL="https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/acp-prod.crt"
 else
-    export DNS_PREFIX=alfresco.${ENVIRONMENT}.alf-notprod.
+    export DNS_PREFIX=alfresco-${ENVIRONMENT}.alf-notprod.
     export CA_URL="https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/acp-notprod.crt"
     if [[ ${ENVIRONMENT} == "qa" ]] ; then
         echo "deploy ${VERSION} to test namespace, using HOCS_ALFRESCO_QA drone secret"
