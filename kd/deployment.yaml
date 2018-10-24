@@ -206,6 +206,8 @@ spec:
             - mountPath: /data
               name: keystore
               readOnly: true
+            - mountPath: /usr/local/alfresco/alf_data
+              name: alfrescodata
       volumes:
         - name: keystore
           emptyDir:
@@ -216,3 +218,6 @@ spec:
         - name: bundle
           configMap:
             name: bundle
+        - name: alfrescodata
+          persistentVolumeClaim:
+            claimName: hocs-alfresco-pvc
