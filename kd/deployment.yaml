@@ -136,14 +136,6 @@ spec:
             runAsNonRoot: true
             fsGroup: 998
             runAsUser: 1000
-          lifecycle:
-            postStart:
-              exec:
-                command:
-                  - "/bin/sh"
-                  - "-c"
-                  - >
-                    chown -R alfresco:alfresco /usr/local/alfresco/alf_data
           env:
             - name: ALF_DB_HOST
               valueFrom:
