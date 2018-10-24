@@ -22,6 +22,9 @@ spec:
         
         version: {{.VERSION}}
     spec:
+      securityContext:
+        fsGroup: 998
+        runAsUser: 1000
       imagePullSecrets:
         - name: registrykey
       initContainers:
