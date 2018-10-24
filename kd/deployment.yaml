@@ -131,12 +131,8 @@ spec:
           imagePullPolicy: Always
           securityContext:
             runAsNonRoot: true
-            fsGroup: 1000
-            runAsUser: 1000
-            capabilities:
-              drop:
-                - SETUID
-                - SETGID
+            fsGroup: alfresco
+            runAsUser: alfresco
           env:
             - name: ALF_DB_HOST
               valueFrom:
