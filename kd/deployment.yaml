@@ -11,10 +11,7 @@ spec:
     matchLabels:
       name: hocs-alfresco
   strategy:
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 2
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       labels:
