@@ -145,7 +145,10 @@ spec:
                   name: {{.KUBE_NAMESPACE}}-mysql-rds
                   key: port
             - name: ALF_DB_NAME
-              value: 'alfdevmysql'
+              valueFrom:
+                secretKeyRef:
+                  name: {{.KUBE_NAMESPACE}}-mysql-rds
+                  key: default_db
             - name: ALF_DB_USERNAME
               valueFrom:
                 secretKeyRef:
