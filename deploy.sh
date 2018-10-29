@@ -10,7 +10,7 @@ fi
 if [[ ${ENVIRONMENT} == "prod" ]] ; then
     echo "deploy ${VERSION} to prod namespace, using HOCS_ALFRESCO_PROD drone secret"
     export KUBE_TOKEN=${HOCS_ALFRESCO_PROD}
-    export REPLICAS="2"
+    export REPLICAS="1"
     export DNS_PREFIX=alfresco.alf.
     export CA_URL="https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/acp-prod.crt"
 else
@@ -19,7 +19,7 @@ else
     if [[ ${ENVIRONMENT} == "qa" ]] ; then
         echo "deploy ${VERSION} to test namespace, using HOCS_ALFRESCO_QA drone secret"
         export KUBE_TOKEN=${HOCS_ALFRESCO_QA}
-        export REPLICAS="2"
+        export REPLICAS="1"
     else
         echo "deploy ${VERSION} to dev namespace, using HOCS_ALFRESCO_DEV drone secret"
         export KUBE_TOKEN=${HOCS_ALFRESCO_DEV}
