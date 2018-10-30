@@ -145,10 +145,7 @@ spec:
                   name: {{.KUBE_NAMESPACE}}-mysql-rds
                   key: port
             - name: ALF_DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{.KUBE_NAMESPACE}}-mysql-rds
-                  key: default_db
+              value: 'alfdevmysql'
             - name: ALF_DB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -207,7 +204,7 @@ spec:
             - mountPath: /data
               name: keystore
               readOnly: true
-            - mountPath: /usr/local/alfresco
+            - mountPath: /usr/local/alfresco/alf_data
               name: alfrescodata
       volumes:
         - name: keystore
