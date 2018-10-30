@@ -207,7 +207,7 @@ spec:
             - mountPath: /data
               name: keystore
               readOnly: true
-            - mountPath: /usr/local/alfresco/alf_data
+            - mountPath: /usr/local/alfresco/alf_data/lucene-indexes
               name: alfrescodata
       volumes:
         - name: keystore
