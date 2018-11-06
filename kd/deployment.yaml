@@ -198,8 +198,8 @@ spec:
               cpu: 3600m
               memory: 10Gi
             requests:
-              cpu: 600m
-              memory: 3096Mi
+              cpu: 1600m
+              memory: 5Gi
           ports:
             - name: http
               containerPort: 8080
