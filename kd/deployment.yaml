@@ -182,7 +182,7 @@ spec:
             - name: ALF_ADMIN_INITIAL_PASSWORD
               value: 209c6174da490caeb422f3fa5a7ae634
             - name: ALF_REPORTING_ENDPOINT
-              value: https:\/\/hocs-reporting-service\.alf-dev\.svc\.cluster\.local
+              value: https:\/\/hocs-reporting-service\.{{.KUBE_NAMESPACE}}\.svc\.cluster\.local
             - name: ALF_NOTIFY_APIKEY
               value: initialtestsendkey-e3262a71-675d-4233-bdd2-99444827ea58-2a0ec2d3...
             - name: ALF_NOTIFY_WF_TEMPLATE_ID
