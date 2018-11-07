@@ -79,7 +79,7 @@ spec:
               readOnly: true
 
         - name: proxy
-          image: quay.io/ukhomeofficedigital/nginx-proxy:v3.2.11
+          image: quay.io/ukhomeofficedigital/nginx-proxy:v3.4.2
           imagePullPolicy: Always
           securityContext:
             runAsNonRoot: true
@@ -89,11 +89,11 @@ spec:
                 - SETGID
           resources:
             limits:
-              memory: "100Mi"
-              cpu: 100m
+              memory: 512Mi
+              cpu: 350m
             requests:
-              memory: "50Mi"
-              cpu: 100m
+              memory: 256Mi
+              cpu: 250m
           env:
             - name: PROXY_SERVICE_HOST
               value: '127.0.0.1'
