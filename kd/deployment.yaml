@@ -195,10 +195,10 @@ spec:
               value: f9deeb0b-88e6-40ee-831e-1dce54a35023
           resources:
             limits:
-              cpu: 3600m
+              cpu: 4
               memory: 10Gi
             requests:
-              cpu: 1600m
+              cpu: 2
               memory: 5Gi
           ports:
             - name: http
