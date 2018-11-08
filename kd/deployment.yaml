@@ -184,15 +184,30 @@ spec:
             - name: ALF_REPORTING_ENDPOINT
               value: https:\/\/hocs-reporting-service\.{{.KUBE_NAMESPACE}}\.svc\.cluster\.local
             - name: ALF_NOTIFY_APIKEY
-              value: initialtestsendkey-e3262a71-675d-4233-bdd2-99444827ea58-2a0ec2d3...
+              valueFrom:
+                secretKeyRef:
+                  name: hocs-alfresco
+                  key: notifyApiKey
             - name: ALF_NOTIFY_WF_TEMPLATE_ID
-              value: f39bab26-758e-4826-895e-6aa576af1c14
+              valueFrom:
+                secretKeyRef:
+                  name: hocs-alfresco
+                  key: notifyWFTemplateId
             - name: ALF_NOTIFY_RESET_PW_TEMPLATE_ID
-              value: ba9fbeaf-3160-41b1-8d61-1a73a89646f2
+              valueFrom:
+                secretKeyRef:
+                  name: hocs-alfresco
+                  key: notifyResetPWTemplateId
             - name: ALF_NOTIFY_BULK_USER_IMPORT_TEMPLATE_ID
-              value: 55a14d74-dfd7-468f-9468-28353139a9ac
+              valueFrom:
+                secretKeyRef:
+                  name: hocs-alfresco
+                  key: notifyBulkUserImportTemplateId
             - name: ALF_NOTIFY_CREATE_CASE_EMAIL_TEMPLATE_ID
-              value: f9deeb0b-88e6-40ee-831e-1dce54a35023
+              valueFrom:
+                secretKeyRef:
+                  name: hocs-alfresco
+                  key: notifyCreateCaseEmailTemplateId
           resources:
             limits:
               cpu: 4
