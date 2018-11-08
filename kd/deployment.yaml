@@ -196,10 +196,10 @@ spec:
           resources:
             limits:
               cpu: 4
-              memory: 30Gi
+              memory: 20Gi
             requests:
               cpu: 2
-              memory: 25Gi
+              memory: 15Gi
           ports:
             - name: http
               containerPort: 8080
