@@ -12,9 +12,11 @@ if [[ ${ENVIRONMENT} == "prod" ]] ; then
     export KUBE_TOKEN=${HOCS_ALFRESCO_PROD}
     export REPLICAS="1"
     export DNS_PREFIX=alfresco.alf.
+    export LEGACY_DNS_PREFIX=alfresco.hocs.
     export CA_URL="https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/acp-prod.crt"
 else
     export DNS_PREFIX=alfresco-${ENVIRONMENT}.alf-notprod.
+    export LEGACY_DNS_PREFIX=alfresco-${ENVIRONMENT}2.alf-notprod.
     export CA_URL="https://raw.githubusercontent.com/UKHomeOffice/acp-ca/master/acp-notprod.crt"
     if [[ ${ENVIRONMENT} == "qa" ]] ; then
         echo "deploy ${VERSION} to test namespace, using HOCS_ALFRESCO_QA drone secret"
@@ -28,6 +30,7 @@ else
 fi
 
 export DOMAIN_NAME=${DNS_PREFIX}homeoffice.gov.uk
+export LEGACY_DOMAIN_NAME=${LEGACY_DNS_PREFIX}homeoffice.gov.uk
 
 if [[ -z ${KUBE_TOKEN} ]] ; then
     echo "[error] Failed to find a value for KUBE_TOKEN - exiting"
