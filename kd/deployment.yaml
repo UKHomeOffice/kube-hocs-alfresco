@@ -90,10 +90,10 @@ spec:
           resources:
             limits:
               memory: 512Mi
-              cpu: 350m
+              cpu: 250m
             requests:
               memory: 256Mi
-              cpu: 250m
+              cpu: 150m
           env:
             - name: CLIENT_MAX_BODY_SIZE
               value: '15'
@@ -212,11 +212,11 @@ spec:
                   key: notifyCreateCaseEmailTemplateId
           resources:
             limits:
-              cpu: 4
-              memory: 20Gi
-            requests:
               cpu: 2
-              memory: 15Gi
+              memory: 12Gi
+            requests:
+              cpu: 1
+              memory: 8Gi
           ports:
             - name: http
               containerPort: 8080
